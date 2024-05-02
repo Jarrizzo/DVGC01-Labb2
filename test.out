@@ -1,0 +1,89 @@
+  i i i i i i i       ooooo    o        ooooooo   ooooo   ooooo
+  I I I I I I I      8     8   8           8     8     o  8    8
+  I  \ `+' /  I      8         8           8     8        8    8
+   \  `-+-'  /       8         8           8      ooooo   8oooo
+    `-__|__-'        8         8           8           8  8
+        |            8     o   8           8     o     8  8
+  ------+------       ooooo    8oooooo  ooo8ooo   ooooo   8
+
+Welcome to GNU CLISP 2.49.93+ (2018-02-18) <http://clisp.org/>
+
+Copyright (c) Bruno Haible, Michael Stoll 1992-1993
+Copyright (c) Bruno Haible, Marcus Daniels 1994-1997
+Copyright (c) Bruno Haible, Pierpaolo Bernardi, Sam Steingold 1998
+Copyright (c) Bruno Haible, Sam Steingold 1999-2000
+Copyright (c) Sam Steingold, Bruno Haible 2001-2018
+
+Type :h and hit Enter for context help.
+
+CTOS
+STR-CON
+WHITESPACE
+GET-WSPACE
+GET-NAME
+GET-NUMBER
+GET-SYMBOL
+GET-LEX
+MAP-LEXEME
+IS-ID
+IS-NUMBER
+PSTATE
+CREATE-PARSER-STATE
+TOKEN
+LEXEME
+SYMTAB-ADD
+SYMTAB-MEMBER
+SYMTAB-DISPLAY
+SYNERR1
+SYNERR2
+SYNERR3
+SEMERR1
+SEMERR2
+SEMERR3
+GET-TOKEN
+MATCH
+*** - SYSTEM::READ-EVAL-PRINT: variable =========================== has no
+      value
+OPERAND-AUX
+OPERAND
+OPERAND
+FACTOR-AUX
+FACTOR
+TERM-AUX
+TERM
+EXPR-AUX
+EXPR
+ASSIGN-STAT
+STAT
+STAT-LIST-AUX
+STAT-LIST
+STAT-PART
+VAR-TYPE
+ID-LIST-AUX
+ID-LIST
+VAR-DEC
+VAR-DEC-LIST
+VAR-PART
+PROGRAM-HEADER
+PROGRAM
+CHECK-END-AUX
+CHECK-END
+PARSE
+PARSE-ALL
+------------------------------------------------------
+--- Parsing program: "testfiles/testa.pas" 
+------------------------------------------------------
+Symbol: "" 
+*** Syntax error:   Expected PROGRAM  found ""       
+*** Syntax error:   Expected ID       found ""       
+*** Syntax error:   Expected LEFTP    found ""       
+*** Syntax error:   Expected INPUT    found ""       
+*** Syntax error:   Expected COMMA    found ""       
+*** Syntax error:   Expected OUTP     found ""       
+*** Syntax error:   Expected SEMICOL  found ""       
+*** Syntax error:   Expected VAR      found ""       
+*** Syntax error:   Expected ID       found ""       
+*** Syntax error:   Expected BEGIN    found ""       
+
+*** - EVAL/APPLY: too many arguments given to TOKEN
+Bye.

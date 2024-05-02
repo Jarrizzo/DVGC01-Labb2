@@ -127,7 +127,7 @@
 ;;=====================================================================
 
 (defun is-id (str)
-   (and(alpha-char-p(char str 0) (every #'alphanumericp str)))
+   (and(alpha-char-p(char str 0)) (every #'alphanumericp str))
 )
 
 (defun is-number (str)
@@ -286,8 +286,7 @@
 ; <term>          --> <factor>   | <factor> * <term>
 ; <factor>        --> ( <expr> ) | <operand>
 ; <operand>       --> id | number
-;;==========================================      (match state 'ID)
-===========================
+;;==========================================      (match state 'ID) ===========================
 
 (defun operand-AUX (state)
    (semerr2 state)
@@ -359,14 +358,14 @@
 )
 
 (defun assign-stat(state)
-   (if(eq(token state 'ID))
+   (if(eq(token state) 'ID)
       (progn
          (if(not(symtab-member state (lexeme state)))
             (semerr2 state)
          )
          (match state 'ID)
       )
-      (synerr1 state)   
+      (synerr1 state 'ID)   
    )
    (match state 'ID)
    (expr state)
@@ -383,8 +382,7 @@
 
 (defun stat-list(state)
    (stat state)
-   (if(eq(token state) 'SEMICOL)   (stat-list state)
-
+   (if(eq(token state) 'SEMICOL)
       (stat-list-AUX state)
    )
 )
@@ -403,7 +401,7 @@
 ; <type>         --> integer | real | boolean
 ;;=====================================================================
 
-(defun type (state)
+(defun var-type (state)
    (cond
       ((eq(token state)  'INTEGER)
          (match state 'INTEGER)
@@ -439,7 +437,7 @@
       (match state 'COLON)
    )
 
-   (type state)
+   (var-type state)
    
    (if(eq(token state)  'SEMICOL)
       (match state 'SEMICOL)
@@ -468,7 +466,8 @@
    (match state 'LEFTP)
    (match state 'INPUT)
    (match state 'COMMA)
-   (match state 'OUTP)
+   (match state 'OUTPUT)
+   (match state 'RIGHTP)
    (match state 'SEMICOL)
 )
 ;;=====================================================================
@@ -489,7 +488,7 @@
    (check-end state)
 )
 (defun check-end (state)
-   (if(not(token state) 'EOF)
+   (if(not(eq(token state) 'EOF))
       (check-end-AUX state)
    )
 )
@@ -523,21 +522,67 @@
 
 (defun parse-all ()
 
-;; *** TO BE DONE ***
+   (mapcar #'parse '(   "testfiles/testa.pas" 
+                        "testfiles/testb.pas" 
+                        "testfiles/testc.pas"
+                        "testfiles/testd.pas"
+                        "testfiles/teste.pas"
+                        "testfiles/testf.pas"
+                        "testfiles/testg.pas"
+                        "testfiles/testh.pas"
+                        "testfiles/testi.pas"
+                        "testfiles/testj.pas"
+                        "testfiles/testk.pas"
+                        "testfiles/testl.pas"
+                        "testfiles/testm.pas"
+                        "testfiles/testn.pas"
+                        "testfiles/testo.pas"
+                        "testfiles/testp.pas"
+                        "testfiles/testq.pas"
+                        "testfiles/testr.pas"
+                        "testfiles/tests.pas"
+                        "testfiles/testt.pas"
+                        "testfiles/testu.pas"
+                        "testfiles/testv.pas"
+                        "testfiles/testw.pas"
+                        "testfiles/testx.pas"
+                        "testfiles/testy.pas"
+                        "testfiles/testz.pas"
 
+                        "testfiles/testok1.pas"
+                        "testfiles/testok2.pas"
+                        "testfiles/testok3.pas"
+                        "testfiles/testok4.pas"
+                        "testfiles/testok5.pas"
+                        "testfiles/testok6.pas"
+                        "testfiles/testok7.pas"
+
+                        "testfiles/fun1.pas"
+                        "testfiles/fun2.pas"
+                        "testfiles/fun3.pas"
+                        "testfiles/fun4.pas"
+                        "testfiles/fun5.pas"
+
+                        "testfiles/sem1.pas"
+                        "testfiles/sem2.pas"
+                        "testfiles/sem3.pas"
+                        "testfiles/sem4.pas"
+                        "testfiles/sem5.pas"
+                     )
+   )
 )
 
 ;;=====================================================================
 ; THE PARSER - test all files
 ;;=====================================================================
 
-;; (parse-all)
+;;(parse-all)
 
 ;;=====================================================================
 ; THE PARSER - test a single file
 ;;=====================================================================
 
-;;(parse "testfiles/testok1.pas")
+(parse "testfiles/testok1.pas")
 
 ;;=====================================================================
 ; THE PARSER - end of code
