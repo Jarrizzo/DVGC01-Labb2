@@ -116,7 +116,7 @@
 
          ((string=   lexeme ""       )	 'EOF     )
          ((is-id     lexeme          )  'ID      )
-         ((is-number lexeme          )  'NUM     )
+         ((is-number lexeme          )  'NUMBER     )
          (t                             'UNKNOWN )
          )
     lexeme)
@@ -286,7 +286,7 @@
 ; <term>          --> <factor>   | <factor> * <term>
 ; <factor>        --> ( <expr> ) | <operand>
 ; <operand>       --> id | number
-;;==========================================      (match state 'ID) ===========================
+;;=====================================================================
 
 (defun operand-AUX (state)
    (semerr2 state)
@@ -307,19 +307,7 @@
       (t(synerr3 state))
    )
 )
-(defun operand(state)
-   (cond 
-      ((and(eq(token state) 'ID) (symtab-member state (lexeme state)))  
-         (match state 'ID))
-      ((eq(token state) 'ID)
-         (operand-aux state)
-      )   
-      ((eq(token state) 'NUM)
-         (match state 'NUM)
-      )
-      (t(synerr3 state))
-   )
-)
+
 (defun factor-AUX (state)
    (match state 'LEFTP)
    (expr state)
@@ -367,7 +355,7 @@
       )
       (synerr1 state 'ID)   
    )
-   (match state 'ID)
+   (match state 'ASIGN)
    (expr state)
 )
 
@@ -412,6 +400,7 @@
       ((eq(token state) 'REAL)
          (match state 'REAL)
       )
+      (t(synerr2 state))
    )
 )
 (defun id-list-AUX (state)
@@ -432,16 +421,10 @@
 )
 (defun var-dec (state)
    (id-list state)
-
-   (if(eq(token state)  'COLON)
-      (match state 'COLON)
-   )
-
+   (match state 'COLON)
    (var-type state)
+   (match state 'SEMICOL)
    
-   (if(eq(token state)  'SEMICOL)
-      (match state 'SEMICOL)
-   )
 )
 (defun var-dec-list (state)
    (var-dec state)
@@ -576,13 +559,13 @@
 ; THE PARSER - test all files
 ;;=====================================================================
 
-;;(parse-all)
+(parse-all)
 
 ;;=====================================================================
 ; THE PARSER - test a single file
 ;;=====================================================================
 
-(parse "testfiles/testok1.pas")
+;;(parse "testfiles/testl.pas")
 
 ;;=====================================================================
 ; THE PARSER - end of code
